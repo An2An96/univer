@@ -1,42 +1,43 @@
 // Разложить натуральное число N на простые множители. Например: 75 = 3 * 5 * 5
-
 //	Антон Немиров	13501/3	<an2an96@bk.ru>
 
 #include "stdafx.h"
 
 using namespace std;
 
+int FindNextPrime(int number, int oldprime)
+{
+	bool check = false;
+	for (int i = 2, k = oldprime + 1; i <= number; i++)
+	{
+		for (k; k < i; k++)
+		{
+			if (!(i % k))
+			{
+				check = true;
+				break;
+			}
+		}
+		if (!check)
+			return k;
+	}
+}
+
 void IntToPrime(int num)
 {
-
-	int pnumbers[] = {
-		2, 3, 5, 7, 11, 13, 17,
-		19, 23, 29, 31, 37, 41, 43,
-		47, 53, 59, 61, 67, 71, 73,
-		79, 83, 89, 97, 101, 103, 107
-	};
-
 	cout << num << " = ";
-	bool error = true;
+	int test, prime = 2;
 	while (num > 1)
 	{
-		for (int i = 0; i < sizeof pnumbers; i++)
-		{
-			if (num % pnumbers[i])
-				continue;
-			num = num / pnumbers[i];
-			cout << pnumbers[i];
-			if (num != 1)
-				cout << " * ";
-			error = false;
-			break;
+		if (num % prime)
+		{		   
+			prime = FindNextPrime(num, prime);
+			continue;
 		}
-		if (error)
-		{
-			cout << "Не получается:C";
-			break;
-		}
-		error = true;
+		num = num / prime;
+		cout << prime;
+		if (num != 1)
+			cout << " * ";
 	}
 	cout << endl;
 }
