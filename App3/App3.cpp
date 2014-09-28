@@ -26,7 +26,7 @@ int FindNextPrime(int number, int oldprime)
 void IntToPrime(int num)
 {
 	cout << num << " = ";
-	int test, prime = 2;
+	int prime = 2;
 	while (num > 1)
 	{
 		if (num % prime)
@@ -45,13 +45,9 @@ void IntToPrime(int num)
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_ALL, "Russian");
-
-	int number;
-	do
-	{
-		cout << "¬ведите целое число:" << endl;
-		cin >> number;
-	} while (number < 1);
+	
+	cout << "¬ведите целое число:" << endl;
+	int number = input_int();
 
 	IntToPrime(number);
 	system("pause");
