@@ -7,20 +7,19 @@ using namespace std;
 
 int FindNextPrime(int number, int oldprime)
 {
-	bool check = false;
-	for (int i = 2, k = oldprime + 1; i <= number; i++)
+	for (int i = oldprime + 1; i < number; ++i)
 	{
-		for (k; k < i; k++)
+		if (number % i)
+			continue;
+		for (int k = 2; k <= i; ++k)
 		{
+			if (k == i)
+				return k;
 			if (!(i % k))
-			{
-				check = true;
 				break;
-			}
 		}
-		if (!check)
-			return k;
 	}
+	return number;
 }
 
 void IntToPrime(int num)
@@ -34,7 +33,7 @@ void IntToPrime(int num)
 			prime = FindNextPrime(num, prime);
 			continue;
 		}
-		num = num / prime;
+		num /= prime;
 		cout << prime;
 		if (num != 1)
 			cout << " * ";
@@ -48,6 +47,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	cout << "¬ведите целое число:" << endl;
 	int number = input_int();
+	while (number < 1)
+	{
+		cout << "¬ведите целое число больше 0!" << endl;
+		number = input_int();
+	}
 
 	IntToPrime(number);
 	system("pause");
