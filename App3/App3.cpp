@@ -1,10 +1,10 @@
-// Р Р°Р·Р»РѕР¶РёС‚СЊ РЅР°С‚СѓСЂР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ N РЅР° РїСЂРѕСЃС‚С‹Рµ РјРЅРѕР¶РёС‚РµР»Рё. РќР°РїСЂРёРјРµСЂ: 75 = 3 * 5 * 5
-//	РђРЅС‚РѕРЅ РќРµРјРёСЂРѕРІ	13501/3	<an2an96@bk.ru>
+// Разложить натуральное число N на простые множители. Например: 75 = 3 * 5 * 5
+//	Антон Немиров	13501/3	<an2an96@bk.ru>
 
 #include "stdafx.h"
 
 #define	input_int(_var)	\
-	do { cin.clear();	cin.sync(); cout << "Р’РІРµРґРёС‚Рµ С†РµР»РѕРµ С‡РёСЃР»Рѕ:" << endl; cin >> _var; } while (cin.fail());
+	do { cin.clear();	cin.sync(); cout << "Введите целое число:" << endl; cin >> _var; } while (cin.fail());
 
 using namespace std;
 
@@ -51,7 +51,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	input_int(number);
 	while (number < 1)
 	{
-		cout << "РћС€РёР±РєР°: Р’РІРµРґРёС‚Рµ С†РµР»РѕРµ С‡РёСЃР»Рѕ Р±РѕР»СЊС€Рµ 0..." << endl;
+		cout << "Ошибка: Введите целое число больше 0..." << endl;
 		input_int(number);
 	}
 	IntToPrime(number);
