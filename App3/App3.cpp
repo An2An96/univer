@@ -3,6 +3,9 @@
 
 #include "stdafx.h"
 
+#define	input_int(_var)	\
+	do { cin.clear();	cin.sync(); cout << "¬ведите целое число:" << endl; cin >> _var; } while (cin.fail());
+
 using namespace std;
 
 int FindNextPrime(int number, int oldprime)
@@ -44,15 +47,13 @@ void IntToPrime(int num)
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_ALL, "Russian");
-	
-	cout << "¬ведите целое число:" << endl;
-	int number = input_int();
+	int number;
+	input_int(number);
 	while (number < 1)
 	{
-		cout << "¬ведите целое число больше 0!" << endl;
-		number = input_int();
+		cout << "ќшибка: ¬ведите целое число больше 0..." << endl;
+		input_int(number);
 	}
-
 	IntToPrime(number);
 	system("pause");
 	return false;
