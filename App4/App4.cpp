@@ -10,23 +10,23 @@
 	(_range_min + rand() % (_range_max - _range_min + 1))
 
 int _tmain(int argc, _TCHAR* argv[])
-{
-	int A[M][N], copy_A[M][N];
-
+{	
+	//	init
 	srand(time(NULL));
-	for (int m = 0; m < M; ++m)
-		for (int n = 0; n < N; ++n)
-			A[m][n] = gen_random(1, 10);
-	memcpy(copy_A, A, sizeof(A));
-
-	for (int m = 0; m < M; ++m)	{
-		for (int n = 0, summ = 0; n < N; ++n, summ = 0)	{
-			for (int i = 0; i <= m; ++i)
-				for (int j = 0; j <= n; ++j)
-					summ += copy_A[i][j];
-			A[m][n] = summ;
-		}
+	//	initialize array
+	int A[M][N];
+	for (int m = 0; m < M; m++)
+		for (int n = 0; n < N; n++)
+			A[m][n] = gen_random(1, 9);
+	//	perform		
+	for (int m = 0; m < M; m++)	{
+		for (int n = 0; n < N; n++)	{
+			if (m - 1 >= 0)
+				A[m][n] += (n - 1 >= 0)	? (A[m - 1][n] - A[m - 1][n - 1] + A[m][n - 1]) : (A[m - 1][n]);
+			else
+				A[m][n] += (n - 1 >= 0) ? (A[m][n - 1]) : (0);
+		} 
 	}
 	system("pause");
-    return 0;
+	return 0;
 }
