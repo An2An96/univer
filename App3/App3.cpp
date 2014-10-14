@@ -3,10 +3,17 @@
 
 #include "stdafx.h"
 
-#define	input_int(_var)	\
-	do { cin.clear();	cin.sync(); cout << "Введите целое число:" << endl; cin >> _var; } while (cin.fail());
-
 using namespace std;
+
+void input_int(int &var)
+{
+	do { 
+		cin.clear();	
+		cin.sync(); 
+		cout << "Введите целое число:" << endl; 
+		cin >> var;
+	} while (cin.fail());	
+}
 
 int FindNextPrime(int number, int oldprime)
 {
