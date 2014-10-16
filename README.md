@@ -1,29 +1,27 @@
-# README #
+* Немиров Антон
+* 13501/3
+* an2an96@bk.ru
 
-This README would normally document whatever steps are necessary to get your application up and running.
+# Задания #
 
-### What is this repository for? ###
+* Задание 1	Сдано
+	Пользователь задает целое двухзначное число (например, 47). Необходимо вывести число, полученное
+	из заданного перестановкой цифр в обратном порядке (например, 74).
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Задание 2	Сдано
+	Проверить, лежит ли окружность (x-a1)^2+(y-b1)^2=r^2 целиком внутри окружности 
+	(x-a2)^2+(y-b2)^2=r^2 или наоборот
 
-### How do I get set up? ###
+* Задание 3	Сдано
+	Разложить натуральное число N на простые множители. Например: 75 = 3 * 5 * 5
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Задание 4	Сдано
+	Каждый элемент aij матрицы A(m,n) заменить суммой элементов подматрицы A'(i,j), 
+	расположенной в левом верхнем углу матрицы A.
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* Задание 5	
+	Текст содержит следующие знаки корректуры: 
+		$ - сделать красную строку
+		# - удалить следующее слово
+		@ - удалить следующее предложение.
+	Произвести указанную корректировку.
