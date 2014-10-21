@@ -6,43 +6,63 @@
 
 using namespace std; 
 
-void replace(string &s)
+string replace(string &s)
 {	
-	//tr1::regex rx("/ ^\w*(#\w*)\s\, \.");
-	//tr1::regex_replace(s, rx, "");
 	int n = 0, m;
-	for (; n != -1;)
-		if ((n = s.find("$", 0)) != -1)
-			s.replace(n, 1, "\t");
-
-	for (n = 0; n != -1;)
+	string error;
+	for (n = s.find("$", 0); n != -1; n = s.find("$", n))
 	{
-		if ((n = s.find("#", 0)) != -1)
+		if (n == 0 || (n > 1 && s[n - 1] == '\n'))
+			s.replace(n, 1, "\t");
+		else
+		{  
+			error.insert(error.size(), "Невозможно добавить красную строку в середину предложения.\n");
+			break;
+		}	
+	}
+
+	for (n = s.find("#", 0); n != -1; n = s.find("#", n))
+	{
+		for (m = n + 1; m < s.size(); m++)
 		{
-			if ((m = s.find(" ", n)) != -1)
-				s.erase(n, m - n + 1);
-			else if ((m = s.find(".", n)) != -1)
-				s.erase(n, m - n + 1);
-			else if ((m = s.find(",", n)) != -1)
-				s.erase(n, m - n + 1);
-			else
-				s.erase(n, s.size());
+			if (((int)s[m] < 65 || (int)s[m] > 122)	//	in not en or ru chars  
+			&& ((int)s[m] < -64 || (int)s[m] > -1))
+			{
+				s.erase(n, m - n);
+				break;
+			}
+		}
+		if (m == s.size())
+		{
+			error.insert(error.size(), "Невозможно удалить слово, так как оно не ограничено знаком припинания.\n");
+			break;
 		}
 	}
 
-	for (n = 0; n != -1;)
-		if ((n = s.find("@", 0)) != -1)
-			s.erase(n, ((m = s.find(".", n)) != -1) ? (m - n + 1) : s.size());
+	for (n = s.find("@", 0); n != -1; n = s.find("@", n))
+	{
+		if ((m = s.find(".", n)) != -1)
+			s.erase(n, m - n + 1);
+		else
+		{	 
+			error.insert(error.size(), "Невозможно удалить предложение, так как оно не ограничено точкой.\n");
+			break;
+		}	
+	}
+	return error;
 }
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_ALL, "Russian");
 
-	string s = "$<- Должна добавиться красная строка.\n#ТЕСТ <- А тут не должно быть слово ТЕСТ.\n@ТЕСТ ТЕСТ ТЕСТ.<-Тут не должно быть предложения ТЕСТ ТЕСТ ТЕСТ.";
+	string s = "$<- Должна добавиться красная строка.\n#ТЕСТ- А тут не должно быть слово ТЕСТ.\n@ТЕСТ ТЕСТ ТЕСТ.<-Тут не должно быть предложения ТЕСТ ТЕСТ ТЕСТ.\n";
 	cout << s << endl;
-	replace(s);
-	cout << s << endl;
+	string error = replace(s);
+	if (error.size())
+		cerr << "При обработке строки были найдены ошибки:\n" << error << endl;
+	else
+		cout << "Результат обработки строки:\n" << s << endl;
 
 	system("pause");
 	return 0;
