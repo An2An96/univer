@@ -32,6 +32,7 @@ private:
 	int upperBound;
 
 	//	#functions
-	int findKey(int iKey);
+	bool keyCell(int, int&);
+	int findKey(int);
 	int findFreeKey();
 };
