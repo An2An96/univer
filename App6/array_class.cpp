@@ -4,100 +4,84 @@
 
 assoc_array::assoc_array(int size)
 {
-	_iUpperBound = size;
-	_iElements = (char**)calloc(_iUpperBound, sizeof(char**));
-	_iKeys = (int*)calloc(_iUpperBound, sizeof(int*));
-
-	for (int i = 0; i < _iUpperBound; i++)
-	{
-		_iElements[i] = NULL;
-		_iKeys[i] = NULL;
-	}
+	upperBound = size;
+	ArrayData = new s_ArrData[upperBound];
 }
 
 assoc_array::~assoc_array()
 {
-	for (int i = 0; i < _iUpperBound; i++)
-		if (_iElements[i] != NULL)
-			free(_iElements[i]);
-	free(_iElements);
-	free(_iKeys);
+	for (int i = 0; i < upperBound; i++)
+		if (ArrayData[i].exist)
+			delete ArrayData[i].string;
+	delete ArrayData;
 }
 
-bool assoc_array::output(int iKey)
+bool assoc_array::output(int key)
 {
-	int iCell = findKey(iKey);
-	if (iCell == -1)
+	int cell = findKey(key);
+	if (cell == KEY_NOT_EXIST)
 	{
-		std::clog << "The cell with the same key is not set" << std::endl;
+		std::cerr << "The cell with the same key is not set" << std::endl;
 		return false;
 	}
-	std::cout << _iElements[iCell];
+	std::cout << ArrayData[cell].string;
 	return true;
 }
 
-bool assoc_array::set(int iKey, char* cString)
+bool assoc_array::set(int key, char* string)
 {
-	int iCell = findKey(iKey);
-	if (iCell == -1)
+	int cell = findKey(key);
+	if (cell == KEY_NOT_EXIST)
 	{
-		if ((iCell = findFreeKey()) == -1)
+		if ((cell = findFreeKey()) == NOT_FREE_KEYS)
 		{
-			std::clog << "No free cells" << std::endl;
+			std::cerr << "No free cells" << std::endl;
 			return false;
 		}
-		_iKeys[iCell] = iKey;
+		ArrayData[cell].key = key;
+		ArrayData[cell].exist = true;
 	}
-
-	//	if isset
-	if (_iElements[iCell] != NULL)
-		free(_iElements[iCell]);
-
-	int len = strlen(cString) + 1;
-	_iElements[iCell] = (char*)calloc(len, sizeof(char));
-	for (int i = 0; i < len; i++)
-		_iElements[iCell][i] = cString[i];
+	int len = strlen(string) + 1;
+	ArrayData[cell].string = new char[len];
+	strcpy_s(ArrayData[cell].string, len, string);
 	return true;
 }
 
-bool assoc_array::copy(int iDestKey, int iSourceKey)
+bool assoc_array::copy(int destKey, int sourceKey)
 {
-	int iSourceCell = findKey(iSourceKey);
-	if (iSourceCell == -1)
+	int cell = findKey(sourceKey);
+	if (cell == KEY_NOT_EXIST)
 	{
-		std::clog << "Source string is not set" << std::endl;
+		std::cerr << "Source string is not set" << std::endl;
 		return false;
 	}
-	return assoc_array::set(iDestKey, _iElements[iSourceCell]);
+	ArrayData[cell] = ArrayData[destKey];
+	return true;
 }
 
-char* assoc_array::operator[](int iKey)
+char* assoc_array::operator[](int key)
 {
-	int iCell = findKey(iKey);
-	if (iCell == -1)
+	int cell = findKey(key);
+	if (cell == KEY_NOT_EXIST)
 	{
-		std::clog << "The cell with the same key is not set" << std::endl;
+		std::cerr << "The cell with the same key is not set" << std::endl;
 		return NULL;
 	}
-	return _iElements[iCell];
+	return ArrayData[cell].string;
 }
 
-int assoc_array::findKey(int iKey)
+int assoc_array::findKey(int key)
 {
-	for (int i = 0; i < _iUpperBound; i++)
-	{
-		if (_iKeys[i] == iKey)
+	for (int i = 0; i < upperBound; i++)
+		if (ArrayData[i].exist && ArrayData[i].key == key)
 			return i;
-	}
-	return -1;
+	return KEY_NOT_EXIST;
 }
 
 int assoc_array::findFreeKey()
 {
-	for (int i = 0; i < _iUpperBound; i++)
-	{
-		if (_iElements[i] == NULL)
+	for (int i = 0; i < upperBound; i++)
+		if (ArrayData[i].exist == false)
 			return i;
-	}
-	return -1;
+	return NOT_FREE_KEYS;
 }
