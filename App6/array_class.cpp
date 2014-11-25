@@ -70,6 +70,14 @@ char* assoc_array::operator[](int key)
 	return ArrayData[cell].string;
 }
 
+std::ostream& operator<<(std::ostream& os, const assoc_array& a)
+{
+	for (int i = 0; i < a.upperBound; i++)
+		if (a.ArrayData[i].exist)
+			os << a.ArrayData[i].string << "\n";
+	return os;
+}
+
 int assoc_array::findKey(int key)
 {
 	for (int i = 0; i < upperBound; i++)
