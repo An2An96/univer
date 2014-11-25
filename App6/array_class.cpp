@@ -11,7 +11,7 @@ assoc_array::assoc_array(int size)
 	for (int i = 0; i < _iUpperBound; i++)
 	{
 		_iElements[i] = NULL;
-		_iKeys[i] = -1;
+		_iKeys[i] = NULL;
 	}
 }
 
@@ -62,7 +62,6 @@ bool assoc_array::set(int iKey, char* cString)
 
 bool assoc_array::copy(int iDestKey, int iSourceKey)
 {
-	
 	int iSourceCell = findKey(iSourceKey);
 	if (iSourceCell == -1)
 	{
@@ -97,7 +96,7 @@ int assoc_array::findFreeKey()
 {
 	for (int i = 0; i < _iUpperBound; i++)
 	{
-		if (_iKeys[i] == -1)
+		if (_iElements[i] == NULL)
 			return i;
 	}
 	return -1;
