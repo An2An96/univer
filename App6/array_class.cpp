@@ -59,6 +59,19 @@ bool assoc_array::copy(int destKey, int sourceKey)
 	return true;
 }
 
+bool assoc_array::clear(int key)
+{
+	int cell = findKey(key);
+	if (cell == KEY_NOT_EXIST)
+	{
+		std::cerr << "Source string is not set" << std::endl;
+		return false;
+	}
+	delete(ArrayData[cell].string);
+	ArrayData[cell].exist = false;
+	return true;
+}
+
 char* assoc_array::operator[](int key)
 {
 	int cell = findKey(key);
