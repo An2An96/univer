@@ -16,6 +16,7 @@ public:
 	bool output(int);
 	bool set(int, char*);
 	bool copy(int, int);
+	bool clear(int);
 
 	char* operator[](int);
 	friend std::ostream& operator<<(std::ostream&, const assoc_array&);
