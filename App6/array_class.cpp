@@ -5,7 +5,7 @@
 assoc_array::assoc_array(int size)
 {
 	_iUpperBound = size;
-	_iElements = (char**)calloc(_iUpperBound, sizeof(char*));
+	_iElements = (char**)calloc(_iUpperBound, sizeof(char**));
 	_iKeys = (int*)calloc(_iUpperBound, sizeof(int*));
 
 	for (int i = 0; i < _iUpperBound; i++)
