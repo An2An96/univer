@@ -2,25 +2,31 @@
 
 #include "stdafx.h"
 
+#define	KEY_NOT_EXIST	(-1)
+#define	NOT_FREE_KEYS	(-1)
+
 class assoc_array	{
 
 public:
 
-	assoc_array(int size);
+	assoc_array(int);
 	~assoc_array();
 
 	//	#functions
-	bool output(int iKey);
-	bool set(int iKey, char* cString);
-	bool copy(int iDestKey, int iSourceKey);
+	bool output(int);
+	bool set(int, char*);
+	bool copy(int, int);
 
-	char* operator[](int iKey);
+	char* operator[](int);
 
 private:
 	//	#vars
-	char **_iElements;
-	int *_iKeys;
-	int _iUpperBound;
+	struct s_ArrData {
+		char *string;
+		int key;
+		bool exist = false;
+	}	*ArrayData;
+	int upperBound;
 
 	//	#functions
 	int findKey(int iKey);
