@@ -49,38 +49,30 @@ bool assoc_array::set(int key, char* string)
 
 bool assoc_array::copy(int destKey, int sourceKey)
 {
-	int cell = findKey(sourceKey);
-	if (cell == KEY_NOT_EXIST)
-	{
-		std::cerr << "Source string is not set" << std::endl;
-		return false;
-	}
-	ArrayData[cell] = ArrayData[destKey];
-	return true;
+	int cell;
+	return (keyCell(sourceKey, cell)) ? set(destKey, ArrayData[cell].string) : false;
 }
 
 bool assoc_array::clear(int key)
 {
-	int cell = findKey(key);
-	if (cell == KEY_NOT_EXIST)
+	int cell;
+	if (keyCell(key, cell))
 	{
-		std::cerr << "Source string is not set" << std::endl;
-		return false;
+		delete(ArrayData[cell].string);
+		ArrayData[cell].exist = false;
+		return true;
 	}
-	delete(ArrayData[cell].string);
-	ArrayData[cell].exist = false;
-	return true;
+	return false;
 }
 
 char* assoc_array::operator[](int key)
 {
-	int cell = findKey(key);
-	if (cell == KEY_NOT_EXIST)
+	int cell;
+	if (keyCell(key, cell))
 	{
-		std::cerr << "The cell with the same key is not set" << std::endl;
-		return NULL;
+		return ArrayData[cell].string;
 	}
-	return ArrayData[cell].string;
+	return NULL;
 }
 
 std::ostream& operator<<(std::ostream& os, const assoc_array& a)
@@ -89,6 +81,17 @@ std::ostream& operator<<(std::ostream& os, const assoc_array& a)
 		if (a.ArrayData[i].exist)
 			os << a.ArrayData[i].string << "\n";
 	return os;
+}
+
+bool assoc_array::keyCell(int key, int &cell)
+{
+	cell = findKey(key);
+	if (cell == KEY_NOT_EXIST)
+	{
+		std::cerr << "The cell with the same key is not set" << std::endl;
+		return false;
+	}
+	return true;
 }
 
 int assoc_array::findKey(int key)
