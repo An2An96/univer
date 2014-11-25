@@ -18,8 +18,10 @@ public:
 	bool copy(int, int);
 
 	char* operator[](int);
+	friend std::ostream& operator<<(std::ostream&, const assoc_array&);
 
 private:
+
 	//	#vars
 	struct s_ArrData {
 		char *string;
