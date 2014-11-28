@@ -1,35 +1,19 @@
 /*
 	Реализовать класс ТАБЛИЦА КЛЮЧ-ЗНАЧЕНИЕ (хранит строки, каждой из которых соответствует уникальный целый ключ).
-	Требуемые методы:
-		+ конструктор
-		+ деструктор
-		+ ввод
-		+ вывод
-		+ копирование
-		+ индексация по ключу
-		+ добавление элемента
-
 	Немиров Антон 13501/3 [https://github.com/An2An96/]
 */
 
 #include "stdafx.h"
 
+using namespace std;
+
 int main()
 {
-	//	Init
 	setlocale(LC_ALL, "Russian");
 
-	//	Work
-	assoc_array	arr(10);
-
-	arr.set(1000, "Строка с ключем 1000.");
-	arr.output(1000);
-
-	arr.set(1, "Строка с ключем 1.");
-	std::cout << arr[1];
-
-	arr.copy(1000, 1);
-	arr.output(1000);
+	assoc_array	arr(5);
+	cin >> arr;
+	cout << arr; 
 
 	system("pause");
 	return 0;
