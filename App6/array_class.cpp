@@ -2,6 +2,8 @@
 
 #include "stdafx.h"
 
+using namespace std;
+
 assoc_array::assoc_array(int size)
 {
 	upperBound = size;
@@ -21,10 +23,10 @@ bool assoc_array::output(int key)
 	int cell = findKey(key);
 	if (cell == KEY_NOT_EXIST)
 	{
-		std::cerr << "The cell with the same key is not set" << std::endl;
+		cerr << "The cell with the same key is not set" << endl;
 		return false;
 	}
-	std::cout << ArrayData[cell].string;
+	cout << ArrayData[cell].string;
 	return true;
 }
 
@@ -35,7 +37,7 @@ bool assoc_array::set(int key, char* string)
 	{
 		if ((cell = findFreeKey()) == NOT_FREE_KEYS)
 		{
-			std::cerr << "No free cells" << std::endl;
+			cerr << "No free cells" << endl;
 			return false;
 		}
 		ArrayData[cell].key = key;
@@ -75,7 +77,7 @@ char* assoc_array::operator[](int key)
 	return NULL;
 }
 
-std::ostream& operator<<(std::ostream& os, const assoc_array& a)
+ostream& operator<<(ostream& os, const assoc_array& a)
 {
 	for (int i = 0; i < a.upperBound; i++)
 		if (a.ArrayData[i].exist)
@@ -83,12 +85,26 @@ std::ostream& operator<<(std::ostream& os, const assoc_array& a)
 	return os;
 }
 
+istream& operator>>(istream& is, assoc_array& a)
+{	  
+	string s;
+	int key;
+	bool step = false;
+	while (getline(is, s))
+	{
+		if (step)	a.set(key, (char*)s.c_str());
+		else		key = atoi(s.c_str());
+		step = !step;
+	}
+	return is;
+}
+
 bool assoc_array::keyCell(int key, int &cell)
 {
 	cell = findKey(key);
 	if (cell == KEY_NOT_EXIST)
 	{
-		std::cerr << "The cell with the same key is not set" << std::endl;
+		cerr << "The cell with the same key is not set" << endl;
 		return false;
 	}
 	return true;
