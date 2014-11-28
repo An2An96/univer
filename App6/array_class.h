@@ -2,6 +2,8 @@
 
 #include "stdafx.h"
 
+using namespace std;
+
 #define	KEY_NOT_EXIST	(-1)
 #define	NOT_FREE_KEYS	(-1)
 
@@ -19,7 +21,8 @@ public:
 	bool clear(int);
 
 	char* operator[](int);
-	friend std::ostream& operator<<(std::ostream&, const assoc_array&);
+	friend ostream& operator<<(ostream&, const assoc_array&);
+	friend istream& operator>>(istream& is, assoc_array&);
 
 private:
 
